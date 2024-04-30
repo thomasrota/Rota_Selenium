@@ -17,36 +17,15 @@ namespace Rota_Selenium
     {
         static void Main(string[] args)
         {
-            // User Input
-            string artista; Console.Write("Inserisci nome dell'artista: "); 
-            artista = Console.ReadLine();
-
             IWebDriver driver = new ChromeDriver();
-            driver.Navigate().GoToUrl($"https://open.spotify.com/search/{artista}/artists");
+            driver.Navigate().GoToUrl($"https://www.billboard.com/charts/billboard-global-200/");
 
             Thread.Sleep(2000);
 
             // Get the first artist element link
-            IWebElement div = driver.FindElement(By.ClassName("main-view-container"));
-            IWebElement firstArtistLink = div.FindElement(By.CssSelector("div[data-encore-id='card']"));
+            IWebElement div = driver.FindElement(By.ClassName("chart-results-list"));
 
-            // Click on the first artist element link
-            firstArtistLink.Click();
-
-            // Get current URL
-            string artistURL = driver.Url;
-            artistURL += "/discography/album";
-
-            // Go to new URL
-            driver.Navigate().GoToUrl(artistURL);
-
-            // Get Albums, Tracklist exc.
-            Thread.Sleep(1000);
-            IWebElement discog = driver.FindElement(By.ClassName("main-view-container")); 
-            IWebElement albumEl = discog.FindElement(By.TagName("span"));
-            Thread.Sleep(1000);
-            IWebElement albumTitle = albumEl.FindElement(By.TagName("a"));
-            Console.Write(albumTitle.GetAttribute("outerHTML"));
+            Console.Write(div.GetAttribute("outerHTML"));
 
             /*var uls = div.FindElements(By.TagName("ul"));
             List<string> autori = new List<string>();
